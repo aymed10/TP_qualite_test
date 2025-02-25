@@ -49,6 +49,51 @@ class BarTest {
         assertEquals("Thé", ((Boisson) result).nom, "Le nom de la boisson doit être 'Thé'");
         assertFalse(bar.boissonChaude.contains(the), "Le thé doit être supprimé de la liste");
     }
+    @Test
+    void testServBoissonChaude() {
+        Bar bar = new Bar();
+        Boisson cafe = new Boisson("Cafe");
+        bar.boissonChaude.add(cafe); // Directly add to boissonChaude
+
+        Object served = bar.serv("Cafe");
+        assertNotNull(served, "Should serve Cafe from boissonChaude");
+        assertEquals("Cafe", ((Boisson) served).nom);
+        assertFalse(bar.boissonChaude.contains(cafe), "Cafe should be removed from boissonChaude");
+    }
+
+    @Test
+    void testServCocktailSansAlcoole() {
+        Bar bar = new Bar();
+        Cocktail virginMojito = new Cocktail("Virgin Mojito");
+        bar.cocktailSansAlcoole.add(virginMojito);
+
+        Object served = bar.serv("Virgin Mojito");
+        assertNotNull(served, "Should serve Virgin Mojito from cocktailSansAlcoole");
+        assertEquals("Virgin Mojito", ((Cocktail) served).nom);
+        assertFalse(bar.cocktailSansAlcoole.contains(virginMojito), "Virgin Mojito should be removed from cocktailSansAlcoole");
+    }
+
+    @Test
+    void testServCocktailAvecAlcoole() {
+        Bar bar = new Bar();
+        Cocktail margarita = new Cocktail("Margarita");
+        margarita.alcoolise = true;
+        bar.cocktailAvecAlcoole.add(margarita);
+
+        Object served = bar.serv("Margarita");
+        assertNotNull(served, "Should serve Margarita from cocktailAvecAlcoole");
+        assertEquals("Margarita", ((Cocktail) served).nom);
+        assertFalse(bar.cocktailAvecAlcoole.contains(margarita), "Margarita should be removed from cocktailAvecAlcoole");
+    }
+
+    @Test
+    void testServNoMatch() {
+        Bar bar = new Bar();
+        Object served = bar.serv("NonExistingDrink");
+        assertNull(served, "Should return null for non-existing drink");
+    }
+
+
 
     @Test
     void testToString() {
