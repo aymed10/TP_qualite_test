@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- You can change 'com.example' to whatever groupId you prefer -->
+    <groupId>com.example</groupId>
+    <artifactId>TP_qualite_test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <!-- Java 17 compilation settings -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- (Optional) Sonar properties if you plan to use SonarCloud -->
+        <!-- Replace these with your actual SonarCloud info -->
+        <!--
+        <sonar.projectKey>YOUR_PROJECT_KEY</sonar.projectKey>
+        <sonar.organization>YOUR_ORGANIZATION</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        -->
+    </properties>
+
+    <dependencies>
+        <!-- JUnit 5 for unit tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <!-- Plugin that runs your tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+
+            <!-- JaCoCo for code coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.8</version>
+                <executions>
+                    <!-- Attach JaCoCo before tests -->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- Generate the coverage report after tests -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- (Optional) Sonar Maven plugin for SonarCloud analysis -->
+            <!-- Only needed if you plan to run 'mvn sonar:sonar' -->
+            <!--
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
+            -->
+
+        </plugins>
+    </build>
+</project>
