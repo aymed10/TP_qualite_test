@@ -11,7 +11,8 @@ class CaveTest {
         Boisson coca = new Boisson("Coca");
         cave.add(coca);
 
-        assertTrue(cave.rayons.contains(coca), "La boisson Coca doit être ajoutée à la cave");
+        // Use getter for rayons
+        assertTrue(cave.getRayons().contains(coca), "La boisson Coca doit être ajoutée à la cave");
     }
 
     @Test
@@ -23,8 +24,9 @@ class CaveTest {
         Boisson result = cave.take("Whisky");
 
         assertNotNull(result, "La boisson doit être retirée avec succès");
-        assertEquals("Whisky", result.nom, "Le nom de la boisson retirée doit être Whisky");
-        assertFalse(cave.rayons.contains(whisky), "La boisson Whisky ne doit plus être dans la cave");
+        // Use getter for nom
+        assertEquals("Whisky", result.getNom(), "Le nom de la boisson retirée doit être Whisky");
+        assertFalse(cave.getRayons().contains(whisky), "La boisson Whisky ne doit plus être dans la cave");
     }
 
     @Test

@@ -5,61 +5,63 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author Pierre Le Fameux
- *
+ * Virtual Cave that holds Boissons.
  */
 public class Cave {
-	public List<Boisson> rayons; // Changed from Vector to List
+	private List<Boisson> rayons;
 
 	/**
 	 * Constructor
 	 */
 	public Cave() {
-		this.rayons = new ArrayList<>(); // Changed from Vector to ArrayList
+		this.rayons = new ArrayList<>();
 	}
 
 	/**
-	 * Add a Boisson to the Cave
+	 * Adds a Boisson to the cave.
 	 *
-	 * @param b Boisson to add
+	 * @param b The Boisson to add.
 	 */
 	public void add(Boisson b) {
 		this.rayons.add(b);
 	}
 
 	/**
-	 * Take a Boisson from the Cave by name
+	 * Takes a Boisson from the cave by name.
 	 *
-	 * @param nom Name of the Boisson
-	 * @return The Boisson if found, otherwise null
+	 * @param nom The name of the Boisson to take.
+	 * @return The Boisson if found; otherwise, null.
 	 */
 	public Boisson take(String nom) {
-		Boisson retour = null;
-		Iterator<Boisson> iterator = this.rayons.iterator(); // Using Iterator instead of Enumeration
-		while (iterator.hasNext()) {
-			retour = iterator.next();
-			if (retour.nom.equalsIgnoreCase(nom)) {
-				iterator.remove();
-				return retour;
+		Iterator<Boisson> it = rayons.iterator();
+		while (it.hasNext()) {
+			Boisson b = it.next();
+			if (b.getNom().equalsIgnoreCase(nom)) {
+				it.remove();
+				return b;
 			}
 		}
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * Returns a string representation of the cave.
+	 *
+	 * @return The string representation.
 	 */
 	@Override
 	public String toString() {
 		StringBuilder retour = new StringBuilder();
 		String eol = System.getProperty("line.separator");
-
 		retour.append("Cave : ").append(eol);
-
-		for (Boisson boisson : this.rayons) {
-			retour.append("\t").append(boisson.toString()).append(eol);
+		for (Boisson b : rayons) {
+			retour.append("\t").append(b.toString()).append(eol);
 		}
-
 		return retour.toString();
+	}
+
+	// Getter for rayons to allow test access
+	public List<Boisson> getRayons() {
+		return new ArrayList<>(rayons);
 	}
 }

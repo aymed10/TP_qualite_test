@@ -23,7 +23,7 @@ class CocktailTest {
         assertTrue(cocktailSansAlcool.alcoolFree(), "Le cocktail doit être sans alcool par défaut");
 
         Cocktail cocktailAvecAlcool = new Cocktail("Mojito");
-        cocktailAvecAlcool.alcoolise = true;
+        cocktailAvecAlcool.setAlcoolise(true); // Use setter
         assertFalse(cocktailAvecAlcool.alcoolFree(), "Le cocktail doit être alcoolisé après modification");
     }
 

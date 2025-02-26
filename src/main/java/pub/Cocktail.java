@@ -1,72 +1,45 @@
 package pub;
 
-import java.util.Vector; 
-import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * @author Pierre Le Fameux
- *
- */
 public class Cocktail {
-	
-	private class Ingrediant{
-		public String ingrediant;
-		public Double quantite;
-		
-		public Ingrediant(String ingrediant, Double quantite){
-			this.ingrediant = ingrediant;
-			this.quantite = quantite;
-		}
-	}
-	
-	public String nom;
-	public Vector<Ingrediant> ingrediants;
-	public Boolean alcoolise;
-	
-	/**
-	 * Creates a Cocktail with its name
-	 * @param nom
-	 */
-	public Cocktail(String nom){
+	private String nom;
+	private boolean alcoolise;
+	private Map<String, Double> ingredients;
+
+	public Cocktail(String nom) {
 		this.nom = nom;
-		this.ingrediants = new Vector<Ingrediant>();
 		this.alcoolise = false;
+		this.ingredients = new HashMap<>();
 	}
-	
-	/**
-	 * add a new element into the Cocktail.
-	 * @param ingrediant
-	 * @param quantite
-	 */
-	public void add(String ingrediant, Double quantite){
-		this.ingrediants.add(new Ingrediant(ingrediant, quantite));
+
+	public void add(String ingredient, Double pourcentage) {
+		ingredients.put(ingredient, pourcentage);
 	}
-	
-	/**
-	 * alcoolFree test if the Cocktail is free alcool.
-	 * @return true if the Cocktail is free alcool
-	 */
-	public Boolean alcoolFree(){
-		return !this.alcoolise;
+
+	public String getNom() {
+		return nom;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString(){
-		// Start with the cocktail's name.
-		String retour = this.nom;
-		// If there are ingredients, add them.
-		if (!ingrediants.isEmpty()) {
-			retour += " : ";
-			Enumeration<Ingrediant> e = this.ingrediants.elements();
-			while (e.hasMoreElements()) {
-				Ingrediant current = e.nextElement();
-				retour += current.ingrediant + " " + current.quantite + "%" + "\t";
-			}
+
+	public boolean isAlcoolise() {
+		return alcoolise;
+	}
+
+	public void setAlcoolise(boolean alcoolise) {
+		this.alcoolise = alcoolise;
+	}
+
+	public boolean alcoolFree() {
+		return !alcoolise;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder retour = new StringBuilder(nom + " : ");
+		for (Map.Entry<String, Double> entry : ingredients.entrySet()) {
+			retour.append(entry.getKey()).append(" ").append(entry.getValue()).append("%    ");
 		}
-		return retour;
+		return retour.toString();
 	}
-
-
 }

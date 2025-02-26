@@ -1,48 +1,41 @@
 package pub;
 
-/**
- * @author Pierre Le Fameux
- *
- */
 public class Boisson {
-	public String nom;
-	public boolean alcoolise;
-	public Float degre;
-	public Float volume;
-	public Float prix;
+	private String nom;
+	private boolean alcoolise;
+	private float degre;
+	private float volume;
+	private float prix;
 
-	/**
-	 * Constructor for non-alcoholic drink
-	 *
-	 * @param nom
-	 */
 	public Boisson(String nom) {
 		this.nom = nom;
 		this.alcoolise = false;
 	}
 
-	/**
-	 * Constructor for alcoholic drink
-	 *
-	 * @param nom
-	 * @param degre
-	 */
-	public Boisson(String nom, Float degre) {
+	public Boisson(String nom, float degre) {
 		this.nom = nom;
-		this.degre = degre;
 		this.alcoolise = true;
+		this.degre = degre;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	public String getNom() {
+		return nom;
+	}
+
+	public boolean isAlcoolise() {
+		return alcoolise;
+	}
+
+	public void setAlcoolise(boolean alcoolise) {
+		this.alcoolise = alcoolise;
+	}
+
 	@Override
 	public String toString() {
-		String retour = this.nom;
-		if (this.alcoolise) {
-			return retour + " (l'abus d'alcool est dangereux pour la sante)";
+		if (alcoolise) {
+			return nom + " (l'abus d'alcool est dangereux pour la sante)";
 		} else {
-			return retour;
+			return nom;
 		}
 	}
 }

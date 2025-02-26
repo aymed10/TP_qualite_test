@@ -3,47 +3,29 @@ package pub;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Pierre Le Fameux
- *
- */
 public class Bar {
-	public List<Boisson> boissonChaude;
-	public List<Boisson> boissonFroide;
-	public List<Boisson> boissonAlcoolisee;
-	public List<Cocktail> cocktailSansAlcoole;
-	public List<Cocktail> cocktailAvecAlcoole;
+	private List<Boisson> boissonChaude;
+	private List<Boisson> boissonFroide;
+	private List<Boisson> boissonAlcoolisee;
+	private List<Cocktail> cocktailSansAlcoole;
+	private List<Cocktail> cocktailAvecAlcoole;
 
-	/**
-	 * Constructor
-	 */
 	public Bar() {
 		this.boissonChaude = new ArrayList<>();
 		this.boissonFroide = new ArrayList<>();
 		this.boissonAlcoolisee = new ArrayList<>();
-
 		this.cocktailAvecAlcoole = new ArrayList<>();
 		this.cocktailSansAlcoole = new ArrayList<>();
 	}
 
-	/**
-	 * Add a Boisson to the Bar
-	 *
-	 * @param boisson
-	 */
 	public void add(Boisson boisson) {
-		if (boisson.alcoolise) {
+		if (boisson.isAlcoolise()) {
 			this.boissonAlcoolisee.add(boisson);
 		} else {
 			this.boissonFroide.add(boisson);
 		}
 	}
 
-	/**
-	 * Add a Cocktail to the Bar
-	 *
-	 * @param cocktail
-	 */
 	public void add(Cocktail cocktail) {
 		if (cocktail.alcoolFree()) {
 			this.cocktailSansAlcoole.add(cocktail);
@@ -52,62 +34,51 @@ public class Bar {
 		}
 	}
 
-	/**
-	 * Serve a drink based on the command
-	 *
-	 * @param command
-	 * @return
-	 */
+
+	public void addBoissonChaude(Boisson boisson) {
+		this.boissonChaude.add(boisson);
+	}
+
+
 	public Object serv(String command) {
-		// Check boissonFroide
 		for (Boisson b : this.boissonFroide) {
-			if (b.nom.equalsIgnoreCase(command)) {
+			if (b.getNom().equalsIgnoreCase(command)) {
 				this.boissonFroide.remove(b);
 				return b;
 			}
 		}
 
-		// Check boissonAlcoolisee
 		for (Boisson b : this.boissonAlcoolisee) {
-			if (b.nom.equalsIgnoreCase(command)) {
+			if (b.getNom().equalsIgnoreCase(command)) {
 				this.boissonAlcoolisee.remove(b);
 				return b;
 			}
 		}
 
-		// Check boissonChaude
 		for (Boisson b : this.boissonChaude) {
-			if (b.nom.equalsIgnoreCase(command)) {
+			if (b.getNom().equalsIgnoreCase(command)) {
 				this.boissonChaude.remove(b);
 				return b;
 			}
 		}
 
-		// Check cocktailSansAlcoole
 		for (Cocktail c : this.cocktailSansAlcoole) {
-			if (c.nom.equalsIgnoreCase(command)) {
+			if (c.getNom().equalsIgnoreCase(command)) {
 				this.cocktailSansAlcoole.remove(c);
 				return c;
 			}
 		}
 
-		// Check cocktailAvecAlcoole
 		for (Cocktail c : this.cocktailAvecAlcoole) {
-			if (c.nom.equalsIgnoreCase(command)) {
+			if (c.getNom().equalsIgnoreCase(command)) {
 				this.cocktailAvecAlcoole.remove(c);
 				return c;
 			}
 		}
 
-		// No match found
 		return null;
 	}
 
-	/**
-	 * Display the Bar inventory as a string
-	 *
-	 * @return
-	 */
 	@Override
 	public String toString() {
 		StringBuilder retour = new StringBuilder();
@@ -141,5 +112,26 @@ public class Bar {
 		}
 
 		return retour.toString();
+	}
+
+	// Added Getters for Private Lists
+	public List<Boisson> getBoissonChaude() {
+		return boissonChaude;
+	}
+
+	public List<Boisson> getBoissonFroide() {
+		return boissonFroide;
+	}
+
+	public List<Boisson> getBoissonAlcoolisee() {
+		return boissonAlcoolisee;
+	}
+
+	public List<Cocktail> getCocktailSansAlcoole() {
+		return cocktailSansAlcoole;
+	}
+
+	public List<Cocktail> getCocktailAvecAlcoole() {
+		return cocktailAvecAlcoole;
 	}
 }
